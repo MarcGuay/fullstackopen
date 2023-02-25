@@ -3,9 +3,7 @@ const Header = (props) => (
 )
 
 const Content = (props) => (
-  <p>
-    {props.part} {props.exercises}
-  </p>
+  <p>{props.part} {props.exercises}</p>
 )
 
 const Total = (props) => (
