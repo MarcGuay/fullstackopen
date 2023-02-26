@@ -15,6 +15,7 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const [points, setPoints] = useState(Array(anecdotes.length).fill(0)) // Empty points array same length as anecdotes
 
   const randomAnecdote = () => {
     setSelected(getRandomInt(0, anecdotes.length))
@@ -23,16 +24,31 @@ const App = () => {
   /*
    * Src: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#getting_a_random_integer_between_two_values
    */
-  function getRandomInt(min, max) {
+  const getRandomInt = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
   }
+  
+  const vote = () => {
+      const newPoints = [...points]
+      newPoints[selected] += 1
+      setPoints(newPoints)
+      
+      // console.log(points.indexOf(Math.max(...points)));
+  }
+  
+  
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <div>{anecdotes[selected]}</div>
+      <div>has {points[selected]} votes</div>
+      <Button onClick={vote} text="vote" />
       <Button onClick={randomAnecdote} text="next anecdote" />
+      <h1>Anecdote with the most votes</h1>
+      <div>{anecdotes[selected]}</div>
     </div>
   )
 }
