@@ -1,79 +1,38 @@
-import { useState } from 'react'
+const Header = (props) => (
+  <h1>{props.course}</h1> 
+)
 
-const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
+const Content = (props) => (
+  <div>
+    <Part part={props.part1} exercises={props.exercises1} />
+    <Part part={props.part2} exercises={props.exercises2} />
+    <Part part={props.part3} exercises={props.exercises3} />
+  </div>
+  
+)
 
-const StatisticLine = ({text, value}) => <tr><td>{text}</td><td>{value}</td></tr>
+const Part = (props) => (
+  <p>{props.part} {props.exercises}</p>
+)
 
-const Statistics = ({good, neutral, bad, total, average, positive}) => {
-  if (total > 0){
-    return (
-      <table>
-        <tbody>
-          <StatisticLine text="good" value ={good} />
-          <StatisticLine text="neutral" value ={neutral} />
-          <StatisticLine text="bad" value ={bad} />
-          <StatisticLine text="total" value ={total} />
-          <StatisticLine text="average" value ={average} />
-          <StatisticLine text="positive" value ={positive} />
-        </tbody>
-      </table>
-    )
-  }
-  return (
-    <div>No feedback given</div>
-  )
-}
+const Total = (props) => (
+  <p>Number of exercises {props.number} </p>
+)
 
 const App = () => {
-
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
-  const [total, setTotal] = useState(0)
-  const [average, setAverage] = useState(0)
-  const [positive, setPositive] = useState(0)
-
-  const incrementGood = () => {
-    const newGood = good + 1
-    setGood(newGood)
-    doCalcs(newGood, bad)
-  }
-
-  const incrementNeutral = () => {
-    const newNeutral = neutral + 1
-    setNeutral(newNeutral)
-    doCalcs(good, bad)
-  }
-
-  const incrementBad = () => {
-    const newBad = bad + 1
-    setBad(newBad)
-    doCalcs(good, newBad)
-  }
-
-  const doCalcs = (g, b) => {
-    const newTotal = total + 1
-    setTotal(newTotal)
-    setAverage(calcAverage(g, b, newTotal))
-    setPositive(calcPositive(g, newTotal))
-  }
-
-  const calcAverage = (g, b, t) => {
-    return (g - b) / t;
-  }
-
-  const calcPositive = (g, t) => {
-    return g / t * 100 + '%';
-  }
+  const course = 'Half Stack application development'
+  const part1 = 'Fundamentals of React'
+  const exercises1 = 10
+  const part2 = 'Using props to pass data'
+  const exercises2 = 7
+  const part3 = 'State of a component'
+  const exercises3 = 14
 
   return (
     <div>
-      <h1>give feedback</h1>
-      <Button onClick={incrementGood} text="good" />
-      <Button onClick={incrementNeutral} text="neutral" />
-      <Button onClick={incrementBad} text="bad" />
-      <h1>statistics</h1>
-      <Statistics good={good} neutral={neutral} bad={bad} total={total} average={average} positive={positive} />
+      <Header course={course} />
+      <Content part1={part1} exercises1={exercises1} part2={part2} exercises2={exercises2} part3={part3} exercises3={exercises3} />
+      <Total number={exercises1 + exercises2 + exercises3} />
     </div>
   )
 }
