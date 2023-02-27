@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+const Header = ({text}) => <h1>{text}</h1>
+
 const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
 
 const StatisticLine = ({text, value}) => <tr><td>{text}</td><td>{value}</td></tr>
@@ -68,11 +70,11 @@ const App = () => {
 
   return (
     <div>
-      <h1>give feedback</h1>
+      <Header text="give feedback" />
       <Button onClick={incrementGood} text="good" />
       <Button onClick={incrementNeutral} text="neutral" />
       <Button onClick={incrementBad} text="bad" />
-      <h1>statistics</h1>
+      <Header text="statistics" />
       <Statistics good={good} neutral={neutral} bad={bad} total={total} average={average} positive={positive} />
     </div>
   )
