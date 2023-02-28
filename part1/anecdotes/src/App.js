@@ -32,14 +32,14 @@ const App = () => {
   }
   
   const vote = () => {
-      const newPoints = [...points]
-      newPoints[selected] += 1
-      setPoints(newPoints)
+    const newPoints = [...points]
+    newPoints[selected] += 1
+    setPoints(newPoints)
   }
 
   const getTopAnecdote = () => {
-      const topAnecdoteIndex= points.indexOf(Math.max(...points))
-      return anecdotes[topAnecdoteIndex]
+    const topAnecdoteIndex= points.indexOf(Math.max(...points))
+    return anecdotes[topAnecdoteIndex]
   }
 
   return (
