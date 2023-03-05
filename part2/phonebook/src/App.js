@@ -23,9 +23,11 @@ const PersonForm = ({ onSubmit, nameVal, nameChange, numVal, numChange }) => (
   </form>
 )
 
-const Persons = ({ persons }) => (
+const Persons = ({ persons, deleteHandler }) => (
   persons.map(person =>
-    <div key={person.name}>{person.name} {person.number}</div>
+    <div key={person.id}>
+      <span>{person.name} {person.number}</span><button onClick={() =>deleteHandler(person.id)}>delete</button>
+    </div>
   )
 )
 
@@ -41,7 +43,7 @@ const App = () => {
         setPersons(initialPersons)
       })
   }, [])
-  
+
   const peopleToShow = persons.filter(person => person.name.toLowerCase().includes(searchFilter.toLowerCase()))
   
   const addName = (event) => {
@@ -52,12 +54,22 @@ const App = () => {
     } else {
     
       personService.create({name: newName, number: newNumber})
-        .then(response => {
-          setPersons(persons.concat(response.data))
+        .then(newPerson => {
+          setPersons(persons.concat(newPerson))
           setNewName('')
           setNewNumber('')
         })
     }
+  }
+  
+  const deleteName = (id) => {
+      personService.del(id)
+        .then(response => {
+          //success
+        })
+        .catch(error => {
+          //error
+        })
   }
   
   const handleNameChange = (event) => {
@@ -79,7 +91,7 @@ const App = () => {
       <h3>Add a new</h3>
       <PersonForm onSubmit={addName} nameVal={newName} nameChange={handleNameChange} numVal={newNumber} numChange={handleNumberChange} />
       <h3>Numbers</h3>
-      <Persons persons={peopleToShow} />
+      <Persons persons={peopleToShow} deleteHandler={deleteName} />
     </div>
   )
 }
