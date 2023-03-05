@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import personService from './services/persons'
 
 const Filter = ({ value, onChange }) => (
   <div>
@@ -38,8 +38,7 @@ const App = () => {
   const peopleToShow = persons.filter(person => person.name.toLowerCase().includes(searchFilter.toLowerCase()))
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
+    personService.getAll()
       .then(response => {
         setPersons(response.data)
       })
@@ -52,10 +51,8 @@ const App = () => {
       alert(`${newName} already exists in the phonebook`)
     } else {
     
-      axios
-        .post('http://localhost:3001/persons', {name: newName, number: newNumber})
+      personService.create({name: newName, number: newNumber})
         .then(response => {
-            console.log(response)
           setPersons(persons.concat(response.data))
           setNewName('')
           setNewNumber('')
