@@ -26,7 +26,7 @@ const PersonForm = ({ onSubmit, nameVal, nameChange, numVal, numChange }) => (
 const Persons = ({ persons, deleteHandler }) => (
   persons.map(person =>
     <div key={person.id}>
-      <span>{person.name} {person.number}</span><button onClick={() =>deleteHandler(person.id)}>delete</button>
+      <span>{person.name} {person.number}</span><button onClick={() =>deleteHandler(person)}>delete</button>
     </div>
   )
 )
@@ -62,14 +62,17 @@ const App = () => {
     }
   }
   
-  const deleteName = (id) => {
-      personService.del(id)
-        .then(response => {
-          //success
-        })
-        .catch(error => {
-          //error
-        })
+  const deleteName = (person) => {
+      if (window.confirm(`Delete ${person.name}?`)){
+        personService.del(person.id)
+          .then(response => {
+            setPersons(persons.filter(p => p.id !== person.id))
+          })
+          .catch(error => {
+            //error
+          })
+      }
+      
   }
   
   const handleNameChange = (event) => {
