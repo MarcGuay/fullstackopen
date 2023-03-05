@@ -38,11 +38,9 @@ const App = () => {
   const peopleToShow = persons.filter(person => person.name.toLowerCase().includes(searchFilter.toLowerCase()))
 
   useEffect(() => {
-    console.log('effect')
     axios
       .get('http://localhost:3001/persons')
       .then(response => {
-        console.log('promise fulfilled')
         setPersons(response.data)
       })
   }, [])
