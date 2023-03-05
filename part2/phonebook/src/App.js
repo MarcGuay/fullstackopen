@@ -34,15 +34,15 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchFilter, setSearchFilter] = useState('')
-  
-  const peopleToShow = persons.filter(person => person.name.toLowerCase().includes(searchFilter.toLowerCase()))
 
   useEffect(() => {
     personService.getAll()
-      .then(response => {
-        setPersons(response.data)
+      .then(initialPersons => {
+        setPersons(initialPersons)
       })
   }, [])
+  
+  const peopleToShow = persons.filter(person => person.name.toLowerCase().includes(searchFilter.toLowerCase()))
   
   const addName = (event) => {
     event.preventDefault();
