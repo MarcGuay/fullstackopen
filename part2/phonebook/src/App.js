@@ -44,18 +44,28 @@ const App = () => {
       })
   }, [])
 
-  const peopleToShow = persons.filter(person => person.name.toLowerCase().includes(searchFilter.toLowerCase()))
-  
+  const peopleToShow = persons.filter(person => person.name.toLowerCase().includes(searchFilter.toLowerCase())).sort((a, b) => a.id - b.id)
+    
   const addName = (event) => {
-    event.preventDefault();
+    event.preventDefault()
+    const newPerson = {name: newName, number: newNumber}
+    const existingPerson = persons.find(person => person.name == newName)
 
-    if (persons.find(person => person.name == newName)){
-      alert(`${newName} already exists in the phonebook`)
+    if (existingPerson){
+      if (window.confirm(`${existingPerson.name} is already added to the phonebook, replace the old number with a new one?`)){
+        personService.update(existingPerson.id, newPerson)
+          .then(returnedPerson => {
+            const newPersons = [returnedPerson, ...persons.filter(person => person.id !== existingPerson.id)]
+            setPersons(newPersons)
+            setNewName('')
+            setNewNumber('')
+          })
+      }
     } else {
     
-      personService.create({name: newName, number: newNumber})
-        .then(newPerson => {
-          setPersons(persons.concat(newPerson))
+      personService.create(newPerson)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
         })
