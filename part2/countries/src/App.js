@@ -17,12 +17,12 @@ const Notification = ({ message }) => {
   )
 }
 
-const CountryDisplay = ({ matches }) => {
+const CountryDisplay = ({ matches, handleShow }) => {
   if (matches.length > 1){
     return (
       matches.map(match =>
         <div key={match.cca2}>
-          <span>{match.name.common}</span>
+          <span>{match.name.common}</span> <button onClick={() => handleShow([match])}>show</button>
         </div>
       )
     )
@@ -75,7 +75,7 @@ function App() {
     <div>
       <CountryInput onChange={countryFilter} />
       <Notification message={errorMessage} />
-      <CountryDisplay matches={matches} />
+      <CountryDisplay matches={matches} handleShow={setMatches} />
     </div>
   )
 }
