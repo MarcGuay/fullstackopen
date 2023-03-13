@@ -26,7 +26,7 @@ const PersonForm = ({ onSubmit, nameVal, nameChange, numVal, numChange }) => (
 const Persons = ({ persons, deleteHandler }) => (
   persons.map(person =>
     <div key={person.id}>
-      <span>{person.name} {person.number}</span><button onClick={() =>deleteHandler(person)}>delete</button>
+      <span>{person.name} {person.number}</span><button onClick={() => deleteHandler(person)}>delete</button>
     </div>
   )
 )
