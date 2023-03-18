@@ -28,7 +28,6 @@ const CountryDisplay = ({ matches, handleShow, weather }) => {
       )
     )
   } else if (matches.length == 1) {
-    //console.log(matches[0])
     return (
       <div>
         <h1>{matches[0].name.common}</h1>
