@@ -1,4 +1,6 @@
 .buildpath
 .settings
 .project
-part3/webserver/node_modules
+part3/notes-backend/node_modules
+part3/notes-backend/.env
+

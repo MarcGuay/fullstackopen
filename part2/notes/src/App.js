@@ -95,11 +95,10 @@ const App = (props) => {
         </button>
       </div>
       <ul>
-        <ul>
-          {notesToShow.map(note => 
-            <Note key={note.id} note={note} toggleImportance={() => toggleImportanceOf(note.id)} />
-          )}
-        </ul>
+        {notesToShow.map(note => {
+            console.log(note.id)
+          return <Note key={note.id} note={note} toggleImportance={() => toggleImportanceOf(note.id)} />
+        })}
       </ul>
       <form onSubmit={addNote}>
         <input 
