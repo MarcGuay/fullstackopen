@@ -90,6 +90,9 @@ const App = () => {
             setErrorMessage({message: null, type: null})
           }, 5000)
         })
+        .catch(error => {
+          setErrorMessage({message:error.response.data.error, type:'error'})
+        })
     }
   }
   
