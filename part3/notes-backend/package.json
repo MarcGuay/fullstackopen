@@ -22,10 +22,11 @@
   "devDependencies": {
     "eslint": "^8.37.0",
     "jest": "^29.5.0",
-    "nodemon": "^2.0.21"
+    "nodemon": "^2.0.21",
+    "supertest": "^6.3.3"
   },
   "proxy": "http://localhost:3001",
-   "jest": {
-     "testEnvironment": "node"
-   }
+  "jest": {
+    "testEnvironment": "node"
+  }
 }
