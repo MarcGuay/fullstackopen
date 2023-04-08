@@ -24,7 +24,7 @@ const mostBlogs = (blogs) => {
   let counter = []
   for (let blog of blogs) {
     const index = counter.findIndex(entry => entry.author===blog.author);
-    if (index > 0){
+    if (index !== -1){
       // If the author is already in the counter array, update the blogs count
       counter[index].blogs++
     } else {
@@ -32,7 +32,7 @@ const mostBlogs = (blogs) => {
       counter.push({'author':blog.author, 'blogs':1})
     }
   }
-  
+
   // Loop and filter for the author with the most blogs
   // return an object with author name and blog count
   return counter.reduce((acc, cur) => {
