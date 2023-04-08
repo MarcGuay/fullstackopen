@@ -40,9 +40,32 @@ const mostBlogs = (blogs) => {
   }, {'author':undefined, 'blogs':0});
 }
 
+const mostLikes = (blogs) => {
+  
+  // Create an array of objects that hold the author name and their total like count
+  let counter = []
+  for (let blog of blogs) {
+    const index = counter.findIndex(entry => entry.author===blog.author);
+    if (index !== -1){
+      // If the author is already in the counter array, update the likes count
+      counter[index].likes += blog.likes
+    } else {
+      // Add the author to the counter array
+      counter.push({'author':blog.author, 'likes': blog.likes})
+    }
+  }
+
+  // Loop and filter for the author with the most likes
+  // return an object with author name and like count
+  return counter.reduce((acc, cur) => {
+    return cur.likes > acc.likes ? cur : acc
+  }, {'author':undefined, 'likes':0});
+}
+
 module.exports = {
   dummy,
   totalLikes,
   favouriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }
